@@ -1,2 +1,3 @@
-build/*
-!build/glfw3.dll
+ExampleProgram/build/*
+!ExampleProgram/build/glfw3.dll
+RetainedImGUI/build/*

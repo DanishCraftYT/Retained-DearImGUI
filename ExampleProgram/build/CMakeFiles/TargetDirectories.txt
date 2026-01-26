@@ -1,3 +1,0 @@
-C:/C++ Projects/Retained-ImGUI/ExampleProgram/build/CMakeFiles/ExampleProgram.dir
-C:/C++ Projects/Retained-ImGUI/ExampleProgram/build/CMakeFiles/edit_cache.dir
-C:/C++ Projects/Retained-ImGUI/ExampleProgram/build/CMakeFiles/rebuild_cache.dir

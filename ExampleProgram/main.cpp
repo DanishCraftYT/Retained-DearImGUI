@@ -3,23 +3,18 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
-#include "GUI/GUIElement.hpp"
-#include "GUI/GUIElements/Text/Text.hpp"
-#include "GUI/GUIElements/Checkbox/Checkbox.hpp"
-#include "GUI/GUIElements/Button/Button.hpp"
+#include "GUI/GUIElements/CoreGUIElements.hpp"
 #include "GUI/GUIWindow.hpp"
 #include "GUI/GUIElements/ComboBox/ComboBox.hpp"
 #include "GUI/GUIElements/Child/Child.hpp"
+#include "GUI/GUIModal.hpp"
 
 /* TODO:
 * (TEST) disabled GUI Elements.
-* implement callbacks (lambdas or std::function?).
-* (TEST) input fields.
-* * add preview text for input fields.
+* (INPUT FIELD) add preview text for input fields.
 * (TEST) list boxes.
-* add support for selectables.
+* convert ListBox and ComboBox to use this implementation of selectable instead of the ImGUI one.
 * add support for multiline input fields.
-* (TEST) modals.
 * add support for toolbars.
 * add support for separators.
 * add support for same lines?
@@ -80,8 +75,8 @@ int main() {
     ImGui_ImplOpenGL3_Init("#version 460");
 
     Text text("TestText", "TTT");
-    Checkbox checkbox("TestCheck", "gfgf");
-    Button button("TestBtn", "ButtonText", ImVec2(75, 25));
+    Checkbox<void> checkbox("TestCheck", "gfgf", [](Checkbox<void>& checkbox) { std::cout << checkbox.isChecked() << std::endl; });
+    Button<void> button("TestBtn", "ButtonText", ImVec2(75, 25));
     GUIWindow win("WinTest", "test");
     ComboBox combobox("NameC", "DD", "ffd");
     combobox.addItem("gf");
@@ -91,6 +86,16 @@ int main() {
     std::shared_ptr child2 = std::make_shared<Child>("c2", ImVec2(150, 50), true);
     child2->addGUIElement(std::make_shared<Text>("TextChild", "Another Child :)"));
     child.addGUIElement(child2);
+
+    GUIModal modal("ModalTest", "Modal Popup");
+    modal.addGUIElement(std::make_shared<Button<int>>("CloseModal", "Close", ImVec2(100, 50), [&modal](Button<int>& button) { modal.close(); return 1; }));
+    
+    Button<int> openModalBtn("OpenModal", "Open Modal Popup", ImVec2(100, 50), [&modal](Button<int>& button) { modal.open(); return 1; });
+
+    InputField<void> inputField("InputFieldTest", "Input Field", [](InputField<void>& inputField) { std::cout << inputField.getInputFieldText() << std::endl; });
+
+    Selectable<void> selectable("SelectableTest", "Selectable", [](Selectable<void>& selected) { std::cout << "selected: " << selected.getName() << std::endl; });
+    Selectable<void> selectable2("SelectableTest2", "Selectable 2", [](Selectable<void>& selected) { std::cout << "selected: " << selected.getName() << std::endl; });
 
     // render loop.
     while(!glfwWindowShouldClose(window))
@@ -108,12 +113,18 @@ int main() {
         ImGui::Begin("r");
         ImGui::Text("Test");
         text.render();
+        selectable.render();
+        selectable2.render();
+        inputField.render();
         child.render();
         checkbox.render();
         button.render();
+        openModalBtn.render();
         ImGui::End();
 
         combobox.render();
+
+        modal.render();
 
         // ImGui Render.
         ImGui::Render();

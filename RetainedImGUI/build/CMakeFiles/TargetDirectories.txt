@@ -1,3 +1,0 @@
-C:/C++ Projects/Retained-ImGUI/RetainedImGUI/build/CMakeFiles/RetainedImGUI.dir
-C:/C++ Projects/Retained-ImGUI/RetainedImGUI/build/CMakeFiles/edit_cache.dir
-C:/C++ Projects/Retained-ImGUI/RetainedImGUI/build/CMakeFiles/rebuild_cache.dir
