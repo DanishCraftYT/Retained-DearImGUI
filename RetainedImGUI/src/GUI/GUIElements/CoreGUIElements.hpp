@@ -5,3 +5,5 @@
 #include "Checkbox/Checkbox.hpp"
 #include "InputField/InputField.hpp"
 #include "Selectable/Selectable.hpp"
+#include "Separator/Separator.hpp"
+#include "SameLine/SameLine.hpp"

@@ -1,8 +1,8 @@
 #include "GUIModal.hpp"
 
-GUIModal::GUIModal(std::string name, std::string text) : visible(GUIElementVisibility::Visible), name(name), uuid(UUIDGenerator::generateUUID()), text(text), shouldOpenModal(false) {}
+GUIModal::GUIModal(std::string name, std::string text) : ContainerMultipleGUIElements(name, text), shouldOpenModal(false) {}
 
-GUIModal::GUIModal() : visible(GUIElementVisibility::Visible), name(""), uuid(UUIDGenerator::generateUUID()), text(""), shouldOpenModal(false) {}
+GUIModal::GUIModal() : ContainerMultipleGUIElements("", ""), shouldOpenModal(false) {}
 
 void GUIModal::terminate() {
     ImGui::CloseCurrentPopup();
@@ -56,26 +56,4 @@ int GUIModal::open() {
 
 void GUIModal::close() {
     ImGui::CloseCurrentPopup();
-}
-
-void GUIModal::addGUIElement(std::shared_ptr<GUIElement> element) {
-    this->GUIElements.emplace_back(element);
-}
-
-int GUIModal::removeGUIElementByUUID(std::string uuid) {
-    for (size_t i = 0; i < this->GUIElements.size(); i++) {
-        if (this->GUIElements.at(i)->getUUID() == uuid) {
-            this->GUIElements.erase(this->GUIElements.begin() + i);
-            return 0;
-        }
-    }
-    return 1;
-}
-
-std::string GUIModal::getName() {
-    return this->name;
-}
-
-std::string GUIModal::getUUID() {
-    return this->uuid;
 }

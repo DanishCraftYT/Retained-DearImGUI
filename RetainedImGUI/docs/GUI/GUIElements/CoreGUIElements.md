@@ -7,3 +7,5 @@ includes core GUI Elements.<br>
 * Checkbox.<br>
 * Input Field.<br>
 * Selectable.<br>
+* Separator.<br>
+* Same Line.<br>

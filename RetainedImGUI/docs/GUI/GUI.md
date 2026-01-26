@@ -10,15 +10,20 @@ constructor for the GUI class.<br>
 ## public GUI()
 constructor for the GUI class.<br>
 
+## public void terminate()
+terminates the GUI and it's GUI Windows.<br>
+
 ## public void renderAllWindows()
 renders all the windows that are part of the GUI.<br>
 
-## public GUIWindow& createWindow(std::string name, std::string text)
+## public GUIWindow& createWindow(std::string name, std::string text, ImVec2 position, ImVec2 size)
 creates a GUI Window that's part of the GUI.<br>
 
 ### params:
 * std::string name - the name of the GUI Window.<br>
 * std::string text - the title of the GUI Window.<br>
+* ImVec2 position - the position of the GUI Window.<br>
+* ImVec2 size - the size of the GUI Window.<br>
 
 ### returns:
 * a reference to the created GUI Window.<br>
@@ -57,6 +62,9 @@ get's the UUID of the GUI.<br>
 
 ## public GUIElementVisibility visible
 determines the GUI's visibility state.<br>
+
+## public GUIToolbar toolbar
+contains the Toolbar for the GLFW Window.<br>
 
 ## private std::string name
 contains the name of the GUI.<br>

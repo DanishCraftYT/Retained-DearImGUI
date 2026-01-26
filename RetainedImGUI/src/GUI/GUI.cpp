@@ -1,8 +1,19 @@
 #include "GUI.hpp"
 
-GUI::GUI(std::string name) : visible(GUIElementVisibility::Visible), name(name) {}
+GUI::GUI(std::string name) : visible(GUIElementVisibility::Visible), toolbar(std::format("{}Toolbar", name)), name(name) {
+    toolbar.visible = GUIElementVisibility::Invisible;
+}
 
-GUI::GUI() : visible(GUIElementVisibility::Visible), name("") {}
+GUI::GUI() : visible(GUIElementVisibility::Visible), toolbar("Toolbar"), name("") {
+    toolbar.visible = GUIElementVisibility::Invisible;
+}
+
+void GUI::terminate() {
+    for (size_t i = 0; i < this->GUIWindows.size(); i++) {
+        this->GUIWindows.at(i).terminate();
+    }
+    this->GUIWindows.clear();
+}
 
 void GUI::renderAllWindows() {
     if (this->visible == GUIElementVisibility::Invisible) {
@@ -10,6 +21,7 @@ void GUI::renderAllWindows() {
     }
     else if (this->visible == GUIElementVisibility::Disabled) {
         ImGui::BeginDisabled();
+        this->toolbar.render();
         for (size_t i = 0; i < this->GUIWindows.size(); i++) {
             this->GUIWindows.at(i).render();
         }
@@ -17,13 +29,14 @@ void GUI::renderAllWindows() {
         return;
     }
 
+    this->toolbar.render();
     for (size_t i = 0; i < this->GUIWindows.size(); i++) {
         this->GUIWindows.at(i).render();
     }
 }
 
-GUIWindow& GUI::createWindow(std::string name, std::string text) {
-    this->GUIWindows.emplace_back(name, text);
+GUIWindow& GUI::createWindow(std::string name, std::string text, ImVec2 position, ImVec2 size) {
+    this->GUIWindows.emplace_back(name, text, position, size);
     return this->GUIWindows.back();
 }
 
