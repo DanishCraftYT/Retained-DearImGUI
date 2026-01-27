@@ -115,6 +115,7 @@ int main() {
     // GUI //
 
     GUI gui("TestGUI");
+    gui.toolbar.visible = GUIElementVisibility::Visible;
 
     // GUI Window & Toolbars //
 
@@ -129,9 +130,8 @@ int main() {
     winToolbar2.addGUIElement(std::make_shared<Button<void>>("ToolbarButton", "Toolbar Button", ImVec2(100, 50)));
     winToolbar2.addGUIElement(std::make_shared<Text>("ToolbarText2", "Toolbar Text 2"));
 
-    GUIToolbar toolbar("GLFWToolbar");
-    toolbar.addToolbarMenu("ToolbarMenu1", "GUIToolbar!").addGUIElement(std::make_shared<ListBox>("ToolbarListBox", "ListBox in Toolbar", ImVec2(50, 50)));
-    toolbar.addToolbarMenu("ToolbarMenu2", "GUIToolbar 2!!").addGUIElement(std::make_shared<ComboBox>("ToolbarComboBox", "ComboBox in Toolbar"));
+    gui.toolbar.addToolbarMenu("ToolbarMenu1", "GUIToolbar!").addGUIElement(std::make_shared<ListBox>("ToolbarListBox", "ListBox in Toolbar", ImVec2(50, 50)));
+    gui.toolbar.addToolbarMenu("ToolbarMenu2", "GUIToolbar 2!!").addGUIElement(std::make_shared<ComboBox>("ToolbarComboBox", "ComboBox in Toolbar"));
 
     // GUI Window 2 //
 
@@ -155,8 +155,6 @@ int main() {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        toolbar.render();
 
         // imgui window.
         ImGui::Begin("r");
@@ -191,7 +189,6 @@ int main() {
 
     gui.terminate();
     modal.terminate();
-    toolbar.terminate();
 
     // ImGui Shutdown.
     ImGui_ImplOpenGL3_Shutdown();

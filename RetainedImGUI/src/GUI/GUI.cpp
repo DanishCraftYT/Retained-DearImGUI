@@ -13,6 +13,7 @@ void GUI::terminate() {
         this->GUIWindows.at(i).terminate();
     }
     this->GUIWindows.clear();
+    this->toolbar.terminate();
 }
 
 void GUI::renderAllWindows() {
