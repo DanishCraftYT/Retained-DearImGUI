@@ -2,6 +2,13 @@
 
 ComboBox::ComboBox(std::string name, std::string text, std::string previewText) : ContainerBoxGUIElement(name), text(text), previewText(previewText) {}
 
+void ComboBox::terminate() {
+    for (size_t i = 0; i < this->items.size(); i++) {
+        this->items.at(i).terminate();
+    }
+    this->items.clear();
+}
+
 void ComboBox::render() {
     if (this->visible == GUIElementVisibility::Invisible) {
         return;

@@ -9,6 +9,9 @@ constructor for the ComboBox class.<br>
 * std::string text - the text the ComboBox should display.<br>
 * std::string previewText="" - the preview text the ComboBox should display.<br>
 
+## public void terminate() override
+terminates the ComboBox.<br>
+
 ## public void render() override
 renders the ComboBox.<br>
 

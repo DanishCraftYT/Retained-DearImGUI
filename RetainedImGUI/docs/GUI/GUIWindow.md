@@ -1,4 +1,4 @@
-# class GUIWindow
+# class GUIWindow : public ContainerMultipleGUIElements
 handles GUI Element's.<br>
 
 ## public GUIWindow(std::string name, std::string text, ImVec2 position, ImVec2 size)

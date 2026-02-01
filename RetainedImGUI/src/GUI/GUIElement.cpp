@@ -4,6 +4,8 @@ GUIElement::GUIElement(std::string name) : visible(GUIElementVisibility::Visible
 
 GUIElement::GUIElement() : visible(GUIElementVisibility::Visible), name(""), uuid(UUIDGenerator::generateUUID()) {}
 
+void GUIElement::terminate() {}
+
 void GUIElement::render() {}
 
 std::string GUIElement::getName() {

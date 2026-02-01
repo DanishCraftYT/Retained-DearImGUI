@@ -21,6 +21,7 @@ class GUIElement {
 public:
     GUIElement(std::string name);
     GUIElement();
+    virtual void terminate();
     virtual void render();
     std::string getName();
     std::string getUUID();

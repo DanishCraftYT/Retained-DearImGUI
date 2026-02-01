@@ -2,6 +2,13 @@
 
 ListBox::ListBox(std::string name, std::string text, ImVec2 size) : ContainerBoxGUIElement(name), text(text), size(size) {}
 
+void ListBox::terminate() {
+    for (size_t i = 0; i < this->items.size(); i++) {
+        this->items.at(i).terminate();
+    }
+    this->items.clear();
+}
+
 void ListBox::render() {
     if (this->visible == GUIElementVisibility::Invisible) {
         return;

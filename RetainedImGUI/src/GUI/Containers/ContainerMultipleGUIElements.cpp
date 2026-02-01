@@ -5,6 +5,9 @@ ContainerMultipleGUIElements::ContainerMultipleGUIElements(std::string name, std
 ContainerMultipleGUIElements::ContainerMultipleGUIElements() : visible(GUIElementVisibility::Visible), name(""), uuid(UUIDGenerator::generateUUID()), text("") {}
 
 void ContainerMultipleGUIElements::terminate() {
+    for (size_t i = 0; i < this->GUIElements.size(); i++) {
+        this->GUIElements.at(i)->terminate();
+    }
     this->GUIElements.clear();
 }
 

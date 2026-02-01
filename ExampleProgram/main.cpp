@@ -11,28 +11,40 @@
 #include "GUI/GUIElements/ListBox/ListBox.hpp"
 #include "GUI/Toolbar/GUIToolbar.hpp"
 #include "GUI/GUI.hpp"
+#include "GUI/GUIElements/Table/Table.hpp"
 
 /* TODO:
+* IMPROVEMENTS:
 * (GUI WINDOW) implement ability to lock the position and/or size of the GUI Window.
-* (GUIELEMENT.hpp) implement a virtual "terminate()" function that can be overridden by GUI Elements like Child which has vectors inside them.
 * * make sure to update classes that contain GUI Elements to terminate them when their terminate function is called.
 * (INPUT FIELD) add preview text for input fields.
 * (SAME LINE) implement ability to adjust x axis offset and spacing.
+* (TABLE) implement ability to add lines between each GUI Element to separate them more visually.
+* (CALLBACK) do so you can get whatever the callback returns (unless it's void).
+* (TEXT) add support for fonts.
+* (TEXT) add support for differently sized text.
+* (TEXT) add support for text filters.
+*
+* CORE:
+* add support for lists (a GUI Element that can only store 1 type of GUI Element).
 * add support for multiline input fields.
-* (TEST) GUI.hpp and it's toolbar and disabling it and making it invisible.
-* add support for groups.
 * add support for sliders.
 * add support for color pickers.
 * add support for images.
 * add support for tree nodes.
 * add support for progress bars.
-* add support for tooltips.
+* (TEST) tooltips (make sure you do so each GUI Element has a Tooltip which by default is invisible).
 * add drag and drop functionality.
-* add support for tables.
+* add support for links.
+*
+* LAYOUT:
+* add support for groups.
 * add support for tabs.
-
+* add support for Docking (https://github.com/ocornut/imgui/wiki/Docking).
+*
 * EXTENSIONS:
 * add support for drawing simple shapes.
+* add support for Multiple-Viewports (https://github.com/ocornut/imgui/wiki/Multi-Viewports).
 */
 
 int main() {
@@ -103,6 +115,13 @@ int main() {
 
     SameLine sameline("SameLineTest");
 
+    Table table("TableTest", 2);
+    table.addGUIElement(std::make_shared<Text>("TableText", "Table Text"));
+    table.addGUIElement(std::make_shared<Checkbox<void>>("TableCheckbox", "Table Checkbox"));
+    table.addGUIElement(std::make_shared<Button<void>>("TableButton", "Table Button", ImVec2(100, 25)));
+    table.addGUIElement(std::make_shared<Text>("TableText2", "Table Text 2"));
+    table.addGUIElement(std::make_shared<Text>("TableText3", "Table Text 3"));
+
     // Child Element.
 
     Child child("f", ImVec2(200, 100), true);
@@ -172,6 +191,10 @@ int main() {
         openModalBtn.render();
         listbox.render();
         combobox.render();
+        ImGui::End();
+
+        ImGui::Begin("W");
+        table.render();
         ImGui::End();
 
         gui.renderAllWindows();

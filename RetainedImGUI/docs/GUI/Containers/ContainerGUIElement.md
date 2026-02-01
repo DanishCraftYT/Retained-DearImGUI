@@ -7,24 +7,27 @@ the constructor for the ContainerGUIElement class.<br>
 ### params:
 * std::string name - the name of the Container GUI Element.<br>
 
-## public void addItem(T item)
-adds a item to the Container GUI Element.<br>
+## public virtual void terminate() override
+terminates the GUI Element Container.<br>
+
+## public virtual void addGUIElement(T GUIElement)
+adds a GUI Element to the Container GUI Element.<br>
 
 ### params:
-* T item - the item to add to the Container GUI Element.<br>
+* T GUIElement - the GUI Element to add to the Container GUI Element.<br>
 
-## public int removeItem(size_t index)
-removes a item from the Container GUI Element.<br>
+## public virtual int removeGUIElement(size_t index)
+removes a GUI Element from the Container GUI Element.<br>
 
 ### params:
-* size_t index - removes a item from the Container GUI Element using a index.<br>
+* size_t index - removes a GUI Element from the Container GUI Element using a index.<br>
 
 ### returns:
-* 1 if it removed the item from the Container GUI Element.<br>
-* 0 if the index larger than the amount of items in Container GUI Element.<br>
+* 1 if it removed the GUI Element from the Container GUI Element.<br>
+* 0 if the index larger than the amount of GUI Elements in Container GUI Element.<br>
 
-## public void removeAllItems()
-removes all items from the Container GUI Element.<br>
+## public virtual void removeAllGUIElements()
+removes all GUI Elements from the Container GUI Element.<br>
 
-## protected std::vector<T> items
-contains all the items inside the Container GUI Element.<br>
+## protected std::vector<T> GUIElements
+contains all the GUI Elements inside the Container GUI Element.<br>

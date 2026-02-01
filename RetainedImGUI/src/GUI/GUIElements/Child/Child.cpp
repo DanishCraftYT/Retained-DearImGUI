@@ -1,6 +1,13 @@
 #include "Child.hpp"
 
-Child::Child(std::string name, ImVec2 size, bool border) : GUIElement(name), size(size), border(border) {}
+Child::Child(std::string name, ImVec2 size, bool border) : ContainerGUIElement(name), size(size), border(border) {}
+
+void Child::terminate() {
+    for (size_t i = 0; i < this->GUIElements.size(); i++) {
+        this->GUIElements.at(i)->terminate();
+    }
+    this->GUIElements.clear();
+}
 
 void Child::render() {
     if (this->visible == GUIElementVisibility::Invisible) {
@@ -32,10 +39,6 @@ void Child::render() {
         this->GUIElements.at(i)->render();
     }
     ImGui::EndChild();
-}
-
-void Child::addGUIElement(std::shared_ptr<GUIElement> element) {
-    this->GUIElements.emplace_back(element);
 }
 
 int Child::removeGUIElementByUUID(std::string uuid) {

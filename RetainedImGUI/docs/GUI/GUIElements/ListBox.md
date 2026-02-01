@@ -9,6 +9,9 @@ constructor for the ListBox class.<br>
 * std::string text - the text the ListBox should display.<br>
 * ImVec2 size - the size of the ListBox.<br>
 
+## public void terminate() override
+terminates the ListBox.<br>
+
 ## public void render() override
 renders the ListBox.<br>
 
@@ -16,7 +19,7 @@ renders the ListBox.<br>
 fixes warning "overloaded-virtual". important: if you need your own callback lambda. you can use this function to add a "Selectable<void>" element with your own callback.<br>
 
 ## public void addItem(std::string name, std::string text)
-adds a item to the List Box.<br>
+adds a item to the ListBox.<br>
 
 ### params:
 * std::string name - the name of the Selectable.<br>
