@@ -5,6 +5,7 @@
 class Table : public ContainerGUIElement<std::shared_ptr<GUIElement>> {
 public:
     Table(std::string name, int columns);
+    void terminate() override;
     void render() override;
     template <typename T>
     std::vector<std::shared_ptr<T>> getGUIElementsByName(std::string name) {

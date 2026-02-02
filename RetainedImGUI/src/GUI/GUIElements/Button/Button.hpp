@@ -1,11 +1,13 @@
 #pragma once
 
-#include "GUI/GUIElement.hpp"
+#include "GUI/GUITooltip.hpp"
 
 template<typename T>
 class Button : public GUIElement {
 public:
-    Button(std::string name, std::string text, ImVec2 size, std::function<T(Button&)> callback=NULL) : GUIElement(name), text(text), size(size), callback(callback) {}
+    Button(std::string name, std::string text, ImVec2 size, std::function<T(Button&)> callback=NULL, std::string tooltipText="") : GUIElement(name), tooltip(std::format("{}Tooltip", name), tooltipText), text(text), size(size), callback(callback) {
+        this->tooltip.visible = GUIElementVisibility::Invisible;
+    }
     void render() override {
         if (this->visible == GUIElementVisibility::Invisible) {
             return;
@@ -23,6 +25,7 @@ public:
             this->callback(*this);
         }
     }
+    GUITooltip tooltip;
 private:
     std::string text;
     ImVec2 size;

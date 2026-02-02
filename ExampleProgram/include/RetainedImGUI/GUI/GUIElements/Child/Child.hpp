@@ -5,6 +5,7 @@
 class Child : public ContainerGUIElement<std::shared_ptr<GUIElement>> {
 public:
     Child(std::string name, ImVec2 size=ImVec2(0, 0), bool border=false);
+    void terminate() override;
     void render() override;
     template <typename T>
     std::vector<std::shared_ptr<T>> getGUIElementsByName(std::string name) {

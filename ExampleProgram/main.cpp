@@ -24,6 +24,8 @@
 * (TEXT) add support for fonts.
 * (TEXT) add support for differently sized text.
 * (TEXT) add support for text filters.
+* (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
+* do so TOOLTIP SUPPORTED GUI ELEMENTS render the tooltip.
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
@@ -38,6 +40,7 @@
 * add support for links.
 *
 * LAYOUT:
+* add support for empty element (element's which contain a empty text field. should primarily be used for putting a empty space between elements).
 * add support for groups.
 * add support for tabs.
 * add support for Docking (https://github.com/ocornut/imgui/wiki/Docking).
@@ -121,6 +124,12 @@ int main() {
     table.addGUIElement(std::make_shared<Button<void>>("TableButton", "Table Button", ImVec2(100, 25)));
     table.addGUIElement(std::make_shared<Text>("TableText2", "Table Text 2"));
     table.addGUIElement(std::make_shared<Text>("TableText3", "Table Text 3"));
+
+    // Tooltips.
+
+    button.tooltip.visible = GUIElementVisibility::Visible;
+    checkbox.tooltip.visible = GUIElementVisibility::Visible;
+    inputField.tooltip.visible = GUIElementVisibility::Visible;
 
     // Child Element.
 

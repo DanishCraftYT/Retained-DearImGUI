@@ -64,7 +64,7 @@ get's the UUID of the GUI.<br>
 determines the GUI's visibility state.<br>
 
 ## public GUIToolbar toolbar
-contains the Toolbar for the GLFW Window.<br>
+contains the Toolbar for the GLFW Window. important: the Toolbar is invisible by default so to use it you will need to make it visible.<br>
 
 ## private std::string name
 contains the name of the GUI.<br>
