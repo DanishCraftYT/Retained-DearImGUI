@@ -12,6 +12,7 @@
 #include "GUI/Toolbar/GUIToolbar.hpp"
 #include "GUI/GUI.hpp"
 #include "GUI/GUIElements/Table/Table.hpp"
+#include "GUI/GUIElements/ProgressBar/SimpleProgressBar.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -25,7 +26,6 @@
 * (TEXT) add support for differently sized text.
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
-* do so TOOLTIP SUPPORTED GUI ELEMENTS render the tooltip.
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
@@ -35,7 +35,8 @@
 * add support for images.
 * add support for tree nodes.
 * add support for progress bars.
-* (TEST) tooltips (make sure you do so each GUI Element has a Tooltip which by default is invisible).
+* * add a updated progress bar (UpdatedProgressbar.hpp) that will progress everytime you call a "update()" function.
+* * add a advanced progress bar that the user will have to progress manually without a "update()" function.
 * add drag and drop functionality.
 * add support for links.
 *
@@ -98,13 +99,13 @@ int main() {
     // GUI Elements //
 
     Text text("TestText", "TTT");
-    Checkbox<void> checkbox("TestCheck", "gfgf", [](Checkbox<void>& checkbox) { std::cout << checkbox.isChecked() << std::endl; });
-    Button<void> button("TestBtn", "ButtonText", ImVec2(75, 25));
+    Checkbox<void> checkbox("TestCheck", "gfgf", [](Checkbox<void>& checkbox) { std::cout << checkbox.isChecked() << std::endl; }, "Tooltip Text");
+    Button<void> button("TestBtn", "ButtonText", ImVec2(75, 25), __null, "Tooltip Text Button");
     ComboBox combobox("NameC", "DD", "ffd");
     combobox.addItem(Selectable<void>("Selectable", "Select", [](Selectable<void>& selectable) { std::cout << selectable.getName(); }));
     combobox.addItem("Selectable 2", "Select");
 
-    InputField<void> inputField("InputFieldTest", "Input Field", [](InputField<void>& inputField) { std::cout << inputField.getInputFieldText() << std::endl; });
+    InputField<void> inputField("InputFieldTest", "Input Field", [](InputField<void>& inputField) { std::cout << inputField.getInputFieldText() << std::endl; }, "Tooltip Text IF");
 
     Selectable<void> selectable("SelectableTest", "Selectable", [](Selectable<void>& selected) { std::cout << "selected: " << selected.getName() << std::endl; });
     Selectable<void> selectable2("SelectableTest2", "Selectable 2", [](Selectable<void>& selected) { std::cout << "selected: " << selected.getName() << std::endl; });
@@ -124,6 +125,11 @@ int main() {
     table.addGUIElement(std::make_shared<Button<void>>("TableButton", "Table Button", ImVec2(100, 25)));
     table.addGUIElement(std::make_shared<Text>("TableText2", "Table Text 2"));
     table.addGUIElement(std::make_shared<Text>("TableText3", "Table Text 3"));
+
+    SimpleProgressBar progressBar("ProgressBarTest", 0.0f, 1.0f, 0.01f, ProgressDirection::FORWARD, ImVec2(50, 20));
+    Button<void> checkProgressButton("CheckButton", "Check Progress", ImVec2(150, 30), [&progressBar](Button<void>& button) { std::cout << progressBar.getProgress() << std::endl; });
+    SameLine sameLineButtons("SameLineButtons");
+    Button<void> finishedButton("FinishedButton", "Has Progress Finished", ImVec2(150, 30), [&progressBar](Button<void>& button) { std::cout << progressBar.hasFinished() << std::endl; });
 
     // Tooltips.
 
@@ -163,7 +169,7 @@ int main() {
 
     // GUI Window 2 //
 
-    GUIWindow& win2 = gui.createWindow("Win2", "Window 2", ImVec2(400, 400), ImVec2(200, 200));
+    gui.createWindow("Win2", "Window 2", ImVec2(400, 400), ImVec2(200, 200));
 
     // GUI Modal //
 
@@ -200,6 +206,13 @@ int main() {
         openModalBtn.render();
         listbox.render();
         combobox.render();
+        ImGui::End();
+
+        ImGui::Begin("f");
+        progressBar.render();
+        checkProgressButton.render();
+        sameLineButtons.render();
+        finishedButton.render();
         ImGui::End();
 
         ImGui::Begin("W");

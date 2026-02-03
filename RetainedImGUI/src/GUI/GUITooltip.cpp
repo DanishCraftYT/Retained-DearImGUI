@@ -10,14 +10,16 @@ void GUITooltip::render() {
     }
     else if (this->visible == GUIElementVisibility::Disabled) {
         ImGui::BeginDisabled();
-        ImGui::BeginTooltip();
-        ImGui::Text(std::format("{}##{}", this->text, this->uuid).c_str());
-        ImGui::EndTooltip();
+        if (ImGui::BeginItemTooltip()) {
+            ImGui::Text(this->text.c_str());
+            ImGui::EndTooltip();
+        }
         ImGui::EndDisabled();
         return;
     }
 
-    ImGui::BeginTooltip();
-    ImGui::Text(std::format("{}##{}", this->text, this->uuid).c_str());
-    ImGui::EndTooltip();
+    if (ImGui::BeginItemTooltip()) {
+        ImGui::Text(this->text.c_str());
+        ImGui::EndTooltip();
+    }
 }

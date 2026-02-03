@@ -8,6 +8,9 @@ public:
     InputField(std::string name, std::string text, std::function<T(InputField&)> callback=NULL, std::string tooltipText="") : GUIElement(name), tooltip(std::format("{}Tooltip", name), tooltipText), text(text), callback(callback) {
         this->tooltip.visible = GUIElementVisibility::Invisible;
     }
+    void terminate() override {
+        this->tooltip.visible = GUIElementVisibility::Invisible;
+    }
     void render() override {
         if (this->visible == GUIElementVisibility::Invisible) {
             return;
@@ -23,6 +26,9 @@ public:
         
         if (ImGui::InputText(std::format("{}##{}", this->text, this->uuid).c_str(), &this->buffer) && this->callback != NULL) {
             this->callback(*this);
+        }
+        if (ImGui::IsItemHovered()) {
+            this->tooltip.render();
         }
     }
     std::string getInputFieldText() {
