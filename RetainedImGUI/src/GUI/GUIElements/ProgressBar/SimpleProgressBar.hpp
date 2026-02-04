@@ -13,7 +13,7 @@ public:
     void render() override;
     float getProgress();
     bool hasFinished();
-private:
+protected:
     float minProgress;
     float maxProgress;
     float progressAmount;

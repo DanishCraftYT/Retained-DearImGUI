@@ -6,6 +6,6 @@ class Text : public GUIElement {
 public:
     Text(std::string name, std::string text);
     void render() override;
-private:
+protected:
     std::string text;
 };

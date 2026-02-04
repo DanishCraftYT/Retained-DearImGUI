@@ -13,6 +13,10 @@
 #include "GUI/GUI.hpp"
 #include "GUI/GUIElements/Table/Table.hpp"
 #include "GUI/GUIElements/ProgressBar/SimpleProgressBar.hpp"
+#include "GUI/GUIElements/ProgressBar/ProgressBar.hpp"
+#include "GUI/GUIElements/ProgressBar/AdvancedProgressBar.hpp"
+#include "GUI/GUIElements/Text/BulletText.hpp"
+#include "GUI/GUIElements/CollapsingHeader/CollapsingHeader.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -26,6 +30,7 @@
 * (TEXT) add support for differently sized text.
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
+* (COLLAPSING HEADER) add a option to do so that when it's reached the end of the Collapsing Header. it displays something to separate elements after it (Empty Text Field?, Separator?).
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
@@ -34,9 +39,6 @@
 * add support for color pickers.
 * add support for images.
 * add support for tree nodes.
-* add support for progress bars.
-* * add a updated progress bar (UpdatedProgressbar.hpp) that will progress everytime you call a "update()" function.
-* * add a advanced progress bar that the user will have to progress manually without a "update()" function.
 * add drag and drop functionality.
 * add support for links.
 *
@@ -126,10 +128,24 @@ int main() {
     table.addGUIElement(std::make_shared<Text>("TableText2", "Table Text 2"));
     table.addGUIElement(std::make_shared<Text>("TableText3", "Table Text 3"));
 
-    SimpleProgressBar progressBar("ProgressBarTest", 0.0f, 1.0f, 0.01f, ProgressDirection::FORWARD, ImVec2(50, 20));
-    Button<void> checkProgressButton("CheckButton", "Check Progress", ImVec2(150, 30), [&progressBar](Button<void>& button) { std::cout << progressBar.getProgress() << std::endl; });
+    BulletText bulletText("BulletText", "Bullet Text");
+
+    CollapsingHeader collapHeader("CollapHeader");
+    collapHeader.addGUIElement(std::make_shared<Text>("CollapText", "Inside Header"));
+    collapHeader.addGUIElement(std::make_shared<ComboBox>("CollapCombo", "Combo Header", "Combo"));
+
+    // Progress Bars.
+
+    SimpleProgressBar simpleProgressBar("SimpleProgressBarTest", 0.0f, 1.0f, 0.01f, ProgressDirection::FORWARD, ImVec2(50, 20));
+    Button<void> checkProgressButton("CheckButton", "Check Progress", ImVec2(150, 30), [&simpleProgressBar](Button<void>& button) { std::cout << simpleProgressBar.getProgress() << std::endl; });
     SameLine sameLineButtons("SameLineButtons");
-    Button<void> finishedButton("FinishedButton", "Has Progress Finished", ImVec2(150, 30), [&progressBar](Button<void>& button) { std::cout << progressBar.hasFinished() << std::endl; });
+    Button<void> finishedButton("FinishedButton", "Has Progress Finished", ImVec2(150, 30), [&simpleProgressBar](Button<void>& button) { std::cout << simpleProgressBar.hasFinished() << std::endl; });
+
+    float advancedProgress = 0.0f;
+    AdvancedProgressBar advancedProgressBar("AdvancedPB", advancedProgress, ImVec2(100, 20));
+
+    ProgressBar progressBar("ProgressBar", 0.0f, 1.0f, 0.1f, ProgressDirection::FORWARD, ImVec2(100, 30));
+    Button<void> updateProgressBar("UpdateProgressBar", "Update Progress Bar", ImVec2(150, 30), [&progressBar](Button<void>& button) { progressBar.update(); });
 
     // Tooltips.
 
@@ -209,10 +225,21 @@ int main() {
         ImGui::End();
 
         ImGui::Begin("f");
-        progressBar.render();
+        simpleProgressBar.render();
         checkProgressButton.render();
         sameLineButtons.render();
         finishedButton.render();
+        bulletText.render();
+        collapHeader.render();
+
+        advancedProgressBar.render();
+        if (advancedProgress < 1.0f) {
+            advancedProgress += 0.1f * ImGui::GetIO().DeltaTime;
+        }
+
+        progressBar.render();
+        updateProgressBar.render();
+
         ImGui::End();
 
         ImGui::Begin("W");

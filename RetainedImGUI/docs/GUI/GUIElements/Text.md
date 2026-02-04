@@ -11,5 +11,5 @@ constructor for the Text class.<br>
 ## public void render() override
 renders the Text.<br>
 
-## private std::string text
+## protected std::string text
 contains the text the Text should display.<br>
