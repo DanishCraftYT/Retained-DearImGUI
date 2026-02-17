@@ -17,6 +17,10 @@
 #include "GUI/GUIElements/ProgressBar/AdvancedProgressBar.hpp"
 #include "GUI/GUIElements/Text/BulletText.hpp"
 #include "GUI/GUIElements/CollapsingHeader/CollapsingHeader.hpp"
+#include "GUI/GUIElements/ColorPicker/ColorPicker.hpp"
+#include "GUI/GUIElements/Slider/SliderFloat.hpp"
+#include "GUI/GUIElements/Slider/SliderInt.hpp"
+#include "GUI/GUIElements/Slider/SliderUInt.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -26,17 +30,20 @@
 * (SAME LINE) implement ability to adjust x axis offset and spacing.
 * (TABLE) implement ability to add lines between each GUI Element to separate them more visually.
 * (CALLBACK) do so you can get whatever the callback returns (unless it's void).
+* * you might be able to use this: "this->callbackReturnValue = this->callback(*this) || std::monostate();". should set it to "std::monostate" if the callback is void.
 * (TEXT) add support for fonts.
 * (TEXT) add support for differently sized text.
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
 * (COLLAPSING HEADER) add a option to do so that when it's reached the end of the Collapsing Header. it displays something to separate elements after it (Empty Text Field?, Separator?).
+* (COLOR PICKER) may want to give it a callback.
+* (COLOR PICKER) do so you can set the color of the Color Picker when creating it.
+* (TEST | SLIDER) may want to give it a callback.
+* (SLIDER) do so you can set the default value of the Slider.
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
 * add support for multiline input fields.
-* add support for sliders.
-* add support for color pickers.
 * add support for images.
 * add support for tree nodes.
 * add drag and drop functionality.
@@ -133,6 +140,13 @@ int main() {
     CollapsingHeader collapHeader("CollapHeader");
     collapHeader.addGUIElement(std::make_shared<Text>("CollapText", "Inside Header"));
     collapHeader.addGUIElement(std::make_shared<ComboBox>("CollapCombo", "Combo Header", "Combo"));
+
+    ColorPicker colorPicker("ColorPickerTest", "Color Picker Test", ColorFormat::HSV, ColorAlpha::ALPHA);
+
+    SliderFloat<void> sliderF("FloatSliderTest", "Float Slider", 1, 0.0f, 1.0f);
+    SliderInt<int> sliderI("IntSliderTest", "Int Slider", 6, 0, 100, [](SliderBase<int, int>& slider) { std::cout << slider.getCurrentValues().at(0) << std::endl; return 1; });
+    SliderUInt<void> sliderUI("UISliderTest", "Unsigned Int Slider", 20, 0, 100);
+    SliderBase<unsigned int, void> sliderB("BaseSliderTest", "Base Slider", 10, 0, 12, ImGuiDataType_::ImGuiDataType_U32);
 
     // Progress Bars.
 
@@ -240,6 +254,11 @@ int main() {
         progressBar.render();
         updateProgressBar.render();
 
+        colorPicker.render();
+        sliderF.render();
+        sliderI.render();
+        sliderUI.render();
+        sliderB.render();
         ImGui::End();
 
         ImGui::Begin("W");
