@@ -36,9 +36,7 @@
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
 * (COLLAPSING HEADER) add a option to do so that when it's reached the end of the Collapsing Header. it displays something to separate elements after it (Empty Text Field?, Separator?).
-* (COLOR PICKER) may want to give it a callback.
 * (COLOR PICKER) do so you can set the color of the Color Picker when creating it.
-* (TEST | SLIDER) may want to give it a callback.
 * (SLIDER) do so you can set the default value of the Slider.
 *
 * CORE:
@@ -141,11 +139,11 @@ int main() {
     collapHeader.addGUIElement(std::make_shared<Text>("CollapText", "Inside Header"));
     collapHeader.addGUIElement(std::make_shared<ComboBox>("CollapCombo", "Combo Header", "Combo"));
 
-    ColorPicker colorPicker("ColorPickerTest", "Color Picker Test", ColorFormat::HSV, ColorAlpha::ALPHA);
+    ColorPicker<void> colorPicker("ColorPickerTest", "Color Picker Test", ColorFormat::RGB, ColorAlpha::ALPHA, [](ColorPicker<void>& colorPicker) { std::cout << colorPicker.getColor().x << std::endl << colorPicker.getColor().y << std::endl << colorPicker.getColor().z << std::endl << colorPicker.getColor().w << std::endl; });
 
     SliderFloat<void> sliderF("FloatSliderTest", "Float Slider", 1, 0.0f, 1.0f);
     SliderInt<int> sliderI("IntSliderTest", "Int Slider", 6, 0, 100, [](SliderBase<int, int>& slider) { std::cout << slider.getCurrentValues().at(0) << std::endl; return 1; });
-    SliderUInt<void> sliderUI("UISliderTest", "Unsigned Int Slider", 20, 0, 100);
+    SliderUInt<void> sliderUI("UISliderTest", "Unsigned Int Slider", 20, 0, 100, [](SliderBase<unsigned int, void>& slider) { for (size_t i = 0; i < slider.getCurrentValues().size(); i++) { std::cout << slider.getCurrentValues().at(i) << std::endl; } });
     SliderBase<unsigned int, void> sliderB("BaseSliderTest", "Base Slider", 10, 0, 12, ImGuiDataType_::ImGuiDataType_U32);
 
     // Progress Bars.

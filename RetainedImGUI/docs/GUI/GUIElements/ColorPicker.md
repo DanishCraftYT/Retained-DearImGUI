@@ -2,10 +2,10 @@
 
 # enum ColorAlpha
 
-# class ColorPicker : public GUIElement
+# template <typename T> class ColorPicker : public GUIElement
 handles Color Pickers.<br>
 
-## public ColorPicker(std::string name, std::string text, ColorFormat colorFormat, ColorAlpha alpha=ColorAlpha::NO_ALPHA)
+## public ColorPicker(std::string name, std::string text, ColorFormat colorFormat, ColorAlpha alpha=ColorAlpha::NO_ALPHA, std::function<T(ColorPicker&)> callback=NULL)
 constructor for the ColorPicker class.<br>
 
 ### params:
@@ -13,6 +13,7 @@ constructor for the ColorPicker class.<br>
 * std::string text - the text the Color Picker should display.<br>
 * ColorFormat colorFormat - the Color Format the Color Picker should display.<br>
 * ColorAlpha alpha=ColorAlpha::NO_ALPHA - determines if the Color Picker should display Alpha or not.<br>
+* std::function<T(ColorPicker&)> callback=NULL - the callback the Color Picker should call when one of it's values changes.<br>
 
 ## public void render() override
 renders the Color Picker.<br>
@@ -47,3 +48,6 @@ determines if the Color Picker should display Alpha or not.<br>
 
 ## private ImVec4 colors
 contains the colors of the Color Picker.<br>
+
+## private std::function<T(ColorPicker&)> callback
+contains the callback the Color Picker should call when one of it's values changes.<br>
