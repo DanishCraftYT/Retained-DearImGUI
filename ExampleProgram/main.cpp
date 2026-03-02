@@ -3,6 +3,8 @@
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
+#include "GUI/RetainedGUI.hpp"
+#include "GUI/Fonts.hpp"
 #include "GUI/GUIElements/CoreGUIElements.hpp"
 #include "GUI/GUIWindow.hpp"
 #include "GUI/GUIElements/ComboBox/ComboBox.hpp"
@@ -58,7 +60,16 @@
 * add support for Multiple-Viewports (https://github.com/ocornut/imgui/wiki/Multi-Viewports).
 */
 
-int main() {
+int main(int argc, char *argv[]) {
+    std::filesystem::path exePath;
+    if (argc == 0) {
+        std::cout << "no path to executable found" << std::endl;
+        return 0;
+    }
+    else if (argc == 1) {
+        exePath = std::filesystem::path(argv[0]);
+    }
+
     // inits GLFW and handles GLFW window hints.
     if (!glfwInit()) {
         return 1;
@@ -92,16 +103,14 @@ int main() {
     // configure global opengl state.
     glEnable(GL_DEPTH_TEST);
 
-    // creates the ImGui context and it's IO.
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // Retained GUI //
 
-    // sets the ImGui style to dark.
-    ImGui::StyleColorsDark();
+    RetainedGUI retainedGUI(window, 460);
 
-    // ImGui GLFW & OpenGL init functions.
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 460");
+    // Fonts //
+
+    Fonts fonts;
+    fonts.addFont("Roboto", exePath.parent_path().parent_path() / "fonts\\Roboto\\Roboto-Regular.ttf", 20);
 
     // GUI Elements //
 
@@ -145,6 +154,8 @@ int main() {
     SliderInt<int> sliderI("IntSliderTest", "Int Slider", 6, 0, 100, [](SliderBase<int, int>& slider) { std::cout << slider.getCurrentValues().at(0) << std::endl; return 1; });
     SliderUInt<void> sliderUI("UISliderTest", "Unsigned Int Slider", 20, 0, 100, [](SliderBase<unsigned int, void>& slider) { for (size_t i = 0; i < slider.getCurrentValues().size(); i++) { std::cout << slider.getCurrentValues().at(i) << std::endl; } });
     SliderBase<unsigned int, void> sliderB("BaseSliderTest", "Base Slider", 10, 0, 12, ImGuiDataType_::ImGuiDataType_U32);
+
+    Text fontText("FontText", "Font Text");
 
     // Progress Bars.
 
@@ -214,9 +225,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // ImGui NewFrame.
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        retainedGUI.ImGUINewFrame();
 
         // imgui window.
         ImGui::Begin("r");
@@ -237,6 +246,9 @@ int main() {
         ImGui::End();
 
         ImGui::Begin("f");
+        fonts.setFont("Roboto");
+        fontText.render();
+        Fonts::setFontToDefault();
         simpleProgressBar.render();
         checkProgressButton.render();
         sameLineButtons.render();
@@ -268,8 +280,7 @@ int main() {
         modal.render();
 
         // ImGui Render.
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        retainedGUI.ImGUIRender();
 
         // swaps GLFW window buffers and handle poll events.
         glfwSwapBuffers(window);
@@ -280,9 +291,7 @@ int main() {
     modal.terminate();
 
     // ImGui Shutdown.
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    retainedGUI.ImGUITerminate();
 
     // terminates GLFW.
     glfwTerminate();
