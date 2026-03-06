@@ -23,6 +23,6 @@ int Fonts::setFont(std::string fontName) {
     return 0;
 }
 
-void Fonts::setFontToDefault() {
+void Fonts::popFont() {
     ImGui::PopFont();
 }

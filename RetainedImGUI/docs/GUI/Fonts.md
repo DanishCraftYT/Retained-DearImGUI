@@ -25,8 +25,8 @@ set's the font used by the GUI.<br>
 * 0 if the font name wasn't found (please make sure the font name is correct and that the font was added to the class).<br>
 * 1 if the font has been set.<br>
 
-## public static void setFontToDefault()
-set's the font to the default font that ImGUI uses.<br>
+## public static void popFont()
+pop's the current font.<br>
 
 ## private std::map<std::string, ImFont*> fonts
 contains fonts.<br>

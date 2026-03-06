@@ -3,7 +3,8 @@
 RetainedGUI::RetainedGUI(GLFWwindow* window, int OpenGLVersion) {
     // creates the ImGui context and it's IO.
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontDefault();  // loads embedded font.
 
     // sets the ImGui style to dark.
     ImGui::StyleColorsDark();

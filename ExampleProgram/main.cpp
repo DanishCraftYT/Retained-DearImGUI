@@ -33,13 +33,14 @@
 * (TABLE) implement ability to add lines between each GUI Element to separate them more visually.
 * (CALLBACK) do so you can get whatever the callback returns (unless it's void).
 * * you might be able to use this: "this->callbackReturnValue = this->callback(*this) || std::monostate();". should set it to "std::monostate" if the callback is void.
-* (TEXT) add support for fonts.
+* (TEXT) add support for modifying text color.
 * (TEXT) add support for differently sized text.
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
 * (COLLAPSING HEADER) add a option to do so that when it's reached the end of the Collapsing Header. it displays something to separate elements after it (Empty Text Field?, Separator?).
 * (COLOR PICKER) do so you can set the color of the Color Picker when creating it.
 * (SLIDER) do so you can set the default value of the Slider.
+* (FONTS | CONSIDER) consider making the Fonts class static.
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
@@ -58,6 +59,10 @@
 * EXTENSIONS:
 * add support for drawing simple shapes.
 * add support for Multiple-Viewports (https://github.com/ocornut/imgui/wiki/Multi-Viewports).
+*/
+
+/* Fonts Note:
+* you need to add "io.Fonts->AddFontDefault();" when adding other fonts or else the program will only use the new font.
 */
 
 int main(int argc, char *argv[]) {
@@ -248,7 +253,6 @@ int main(int argc, char *argv[]) {
         ImGui::Begin("f");
         fonts.setFont("Roboto");
         fontText.render();
-        Fonts::setFontToDefault();
         simpleProgressBar.render();
         checkProgressButton.render();
         sameLineButtons.render();
@@ -269,6 +273,7 @@ int main(int argc, char *argv[]) {
         sliderI.render();
         sliderUI.render();
         sliderB.render();
+        Fonts::popFont();
         ImGui::End();
 
         ImGui::Begin("W");
