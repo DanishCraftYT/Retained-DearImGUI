@@ -28,7 +28,9 @@
 * IMPROVEMENTS:
 * (GUI WINDOW) implement ability to lock the position and/or size of the GUI Window.
 * * make sure to update classes that contain GUI Elements to terminate them when their terminate function is called.
+* (GUI) do so it handles GUI Modals.
 * (INPUT FIELD) add preview text for input fields.
+* (INPUT FIELD) ability to show / hide the user input (kinda like password input fields).
 * (SAME LINE) implement ability to adjust x axis offset and spacing.
 * (TABLE) implement ability to add lines between each GUI Element to separate them more visually.
 * (CALLBACK) do so you can get whatever the callback returns (unless it's void).
