@@ -1,4 +1,5 @@
 import shutil
+import sys
 import os
 
 example_program_dir_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ExampleProgram")
@@ -14,9 +15,15 @@ if input("Build retained imgui? (y/n): ").lower() == "y":
     print("building retained imgui.")
 
     # builds the CMake project and creates the library.
-    if os.system(f"cmake -S \"{rgui_dir_path}\" -B \"{rgui_build_path}\" -G \"MinGW Makefiles\"") != 0:
-        print("retained imgui CMake build failed.")
-        exit(1)
+    if sys.platform == "win32":
+        if os.system(f"cmake -S \"{rgui_dir_path}\" -B \"{rgui_build_path}\" -G \"MinGW Makefiles\"") != 0:
+            print("retained imgui CMake build failed.")
+            exit(1)
+    else:
+        if os.system(f"cmake -S \"{rgui_dir_path}\" -B \"{rgui_build_path}\"") != 0:
+            print("retained imgui CMake build failed.")
+            exit(1)
+
 
     if os.system(f"cmake --build \"{rgui_build_path}\"") == 2:
         print("retained imgui build failed.")
@@ -39,9 +46,14 @@ if input("Build retained imgui? (y/n): ").lower() == "y":
 print("building example program.")
 
 # builds the CMake project and creates the executable.
-if os.system(f"cmake -S \"{example_program_dir_path}\" -B \"{example_program_build_path}\" -G \"MinGW Makefiles\"") != 0:
-    print("example program CMake build failed.")
-    exit(1)
+if sys.platform == "win32":
+    if os.system(f"cmake -S \"{example_program_dir_path}\" -B \"{example_program_build_path}\" -G \"MinGW Makefiles\"") != 0:
+        print("example program CMake build failed.")
+        exit(1)
+else:
+    if os.system(f"cmake -S \"{example_program_dir_path}\" -B \"{example_program_build_path}\"") != 0:
+        print("example program CMake build failed.")
+        exit(1)
 
 if os.system(f"cmake --build \"{example_program_build_path}\"") != 0:
     print("example program build failed.")

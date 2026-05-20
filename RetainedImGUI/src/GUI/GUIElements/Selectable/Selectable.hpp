@@ -12,14 +12,14 @@ public:
         }
         else if (this->visible == GUIElementVisibility::Disabled) {
             ImGui::BeginDisabled();
-            if (ImGui::Selectable(std::format("{}##{}", this->text, this->uuid).c_str())) {
+            if (ImGui::Selectable(std::format("{}##{}", this->text, this->uuid).c_str()) && this->callback != NULL) {
                 this->callback(*this);
             }
             ImGui::EndDisabled();
             return;
         }
 
-        if (ImGui::Selectable(std::format("{}##{}", this->text, this->uuid).c_str())) {
+        if (ImGui::Selectable(std::format("{}##{}", this->text, this->uuid).c_str()) && this->callback != NULL) {
             this->callback(*this);
         }
     }

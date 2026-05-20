@@ -1,12 +1,16 @@
 #pragma once
 
 #include "GUI/Containers/ContainerGUIElement.hpp"
+#include "GUI/GUIElement.hpp"
 
-class Table : public ContainerGUIElement<std::shared_ptr<GUIElement>> {
+class TreeNode : public ContainerGUIElement<std::shared_ptr<GUIElement>> {
 public:
-    Table(std::string name, int columns);
+    TreeNode(std::string name, std::string text, ImGuiTreeNodeFlags nodeFlags = 0);
     void terminate() override;
     void render() override;
+    ImGuiTreeNodeFlags getTreeNodeFlags();
+    void setTreeNodeFlags(ImGuiTreeNodeFlags treeNodeFlags);
+    int getIndexFromItem(GUIElement& guiElement);
     template <typename T>
     std::vector<std::shared_ptr<T>> getGUIElementsByName(std::string name) {
         std::vector<std::shared_ptr<T>> elements;
@@ -28,5 +32,6 @@ public:
     }
     int removeGUIElementByUUID(std::string uuid);
 private:
-    int columns;
+    std::string text;
+    ImGuiTreeNodeFlags nodeFlags;
 };

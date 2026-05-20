@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
@@ -23,6 +24,7 @@
 #include "GUI/GUIElements/Slider/SliderFloat.hpp"
 #include "GUI/GUIElements/Slider/SliderInt.hpp"
 #include "GUI/GUIElements/Slider/SliderUInt.hpp"
+#include "GUI/GUIElements/Tree/Tree.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -117,7 +119,10 @@ int main(int argc, char *argv[]) {
     // Fonts //
 
     Fonts fonts;
-    fonts.addFont("Roboto", exePath.parent_path().parent_path() / "fonts\\Roboto\\Roboto-Regular.ttf", 20);
+    if (!fonts.addFont("Roboto", exePath.parent_path().parent_path() / "fonts" / "Roboto" / "Roboto-Regular.ttf", 20)) {
+	std::cout << std::format("Font: \"{}\" couldn't be found.", (exePath.parent_path().parent_path() / "fonts" / "Roboto" / "Roboto-Regular.ttf").string()) << std::endl;
+	return 1;
+    }
 
     // GUI Elements //
 
@@ -191,6 +196,21 @@ int main(int argc, char *argv[]) {
     std::shared_ptr child2 = std::make_shared<Child>("c2", ImVec2(150, 50), true);
     child2->addGUIElement(std::make_shared<Text>("TextChild", "Another Child :)"));
     child.addGUIElement(child2);
+
+    // Tree's.
+    
+    Tree tree("Tree1", "Test Tree");
+    tree.addItem("TreeNode1", "Tree Node Test");
+    std::shared_ptr<TreeNode> node = tree.getItem("TreeNode1");
+    if (node == nullptr) {
+	std::cout << "Tree Node: \"TreeNode1\" is not valid." << std::endl;
+    }
+    else {
+	node->addGUIElement(std::make_shared<TreeNode>("TreeChild", "Tree Node Child"));
+	node->addGUIElement(std::make_shared<Selectable<void>>("TreeSelect", "Tree Selectable"));
+	std::shared_ptr<TreeNode> node2 = node->getGUIElementsByName<TreeNode>("TreeChild").at(0);
+	node2->addGUIElement(std::make_shared<Text>("TreeChildText", "Tree Child Text"));
+    }
 
     // GUI //
 
@@ -280,6 +300,7 @@ int main(int argc, char *argv[]) {
 
         ImGui::Begin("W");
         table.render();
+	tree.render();
         ImGui::End();
 
         gui.renderAllWindows();

@@ -1,0 +1,13 @@
+{
+  "configurations": {
+    "Launch": {
+      "adapter": "CodeLLDB",
+      "filetypes": [ "cpp", "c" ], // optional
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/ExampleProgram/build/ExampleProgram.exe",
+        "stopAtEntry": true
+      }
+    }
+  }
+}

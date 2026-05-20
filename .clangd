@@ -1,0 +1,6 @@
+Diagnostics:
+  UnusedIncludes: None
+  Suppress: ["-Wdelete-non-abstract-non-virtual-dtor", "-Wunused-parameter"]
+
+CompileFlags:
+  Add: [-std=c++20]

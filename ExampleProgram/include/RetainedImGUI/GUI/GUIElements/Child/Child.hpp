@@ -9,7 +9,7 @@ public:
     void render() override;
     template <typename T>
     std::vector<std::shared_ptr<T>> getGUIElementsByName(std::string name) {
-        std::vector<std::shared_ptr<GUIElement>> elements;
+        std::vector<std::shared_ptr<T>> elements;
         for (size_t i = 0; i < this->GUIElements.size(); i++) {
             if (this->GUIElements.at(i)->getName() == name) {
                 elements.emplace_back(std::dynamic_pointer_cast<T>(this->GUIElements.at(i)));
