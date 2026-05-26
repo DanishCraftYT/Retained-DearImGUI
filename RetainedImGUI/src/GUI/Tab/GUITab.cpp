@@ -46,10 +46,10 @@ int GUITab::removeTabItemByUUID(std::string uuid) {
     for (size_t i = 0; i < this->tabItems.size(); i++) {
         if (this->tabItems.at(i)->getUUID() == uuid) {
             this->tabItems.erase(this->tabItems.begin() + i);
-            return 0;
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 std::string GUITab::getName() {

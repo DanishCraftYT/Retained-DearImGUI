@@ -22,6 +22,9 @@ renders the GUI Window.<br>
 ## public GUIWindowToolbar toolbar
 contains the Toolbar for the GUI Window. important: the Toolbar is invisible by default so to use it you will need to make it visible.<br>
 
+## public GUITab tab
+contains the class that handles Tabs for the GUIWindow. important: the Tabs handler class is set to invisible by default. to use tabs. make sure to make it visible.<br>
+
 ## private ImVec2 position
 contains the original position of the GUI Window.<br>
 

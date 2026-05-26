@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 
+#include "GUI/GUIElement.hpp"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
@@ -236,6 +237,18 @@ int main(int argc, char *argv[]) {
     // GUI Window 2 //
 
     gui.createWindow("Win2", "Window 2", ImVec2(400, 400), ImVec2(200, 200));
+
+    // GUI Window Tabs //
+
+    GUIWindow& winTabs = gui.createWindow("WinTabs", "Window Tabs", ImVec2(400, 200), ImVec2(250, 250));
+    winTabs.tab.visible = GUIElementVisibility::Visible; // makes the tabs visible.
+    std::shared_ptr<TabItem> tab1 = winTabs.tab.addTabItem("Tab1", "Test Tab");
+    tab1->addGUIElement(std::make_shared<Text>("TabText", "Tab1 Text"));
+    tab1->addGUIElement(std::make_shared<Button<void>>("TabButton", "Tab1 Button", ImVec2(50, 30)));
+
+    std::shared_ptr<TabItem> tab2 = winTabs.tab.addTabItem("Tab2", "Test Tab 2");
+    tab2->addGUIElement(std::make_shared<Text>("Tab2Text", "Tab 2 Text"));
+    tab2->addGUIElement(std::make_shared<InputField<void>>("Tab2InputField", "Tab 2 Input Field"));
 
     // GUI Modal //
 
