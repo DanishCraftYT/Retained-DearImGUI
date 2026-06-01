@@ -1,5 +1,6 @@
 #include "GUITab.hpp"
 #include "GUI/Tab/TabItem.hpp"
+#include "ImGUI/imgui.h"
 #include <memory>
 
 GUITab::GUITab(std::string name, std::string text) : visible(GUIElementVisibility::Visible), name(name), uuid(UUIDGenerator::generateUUID()) {}
@@ -19,21 +20,21 @@ void GUITab::render() {
     }
     else if (this->visible == GUIElementVisibility::Disabled) {
         ImGui::BeginDisabled();
-        if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginTabBar(this->name.c_str())) {
             for (size_t i = 0; i < this->tabItems.size(); i++) {
                 this->tabItems.at(i)->render();
             }
-            ImGui::EndMainMenuBar();
+            ImGui::EndTabBar();
         }
         ImGui::EndDisabled();
         return;
     }
 
-    if (ImGui::BeginMainMenuBar()) {
+    if (ImGui::BeginTabBar(this->name.c_str())) {
         for (size_t i = 0; i < this->tabItems.size(); i++) {
             this->tabItems.at(i)->render();
         }
-        ImGui::EndMainMenuBar();
+        ImGui::EndTabBar();
     }
 }
 

@@ -26,6 +26,7 @@
 #include "GUI/GUIElements/Slider/SliderInt.hpp"
 #include "GUI/GUIElements/Slider/SliderUInt.hpp"
 #include "GUI/GUIElements/Tree/Tree.hpp"
+#include "GUI/GUIElements/Image/Image.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -182,6 +183,11 @@ int main(int argc, char *argv[]) {
 
     ProgressBar progressBar("ProgressBar", 0.0f, 1.0f, 0.1f, ProgressDirection::FORWARD, ImVec2(100, 30));
     Button<void> updateProgressBar("UpdateProgressBar", "Update Progress Bar", ImVec2(150, 30), [&progressBar](Button<void>& button) { progressBar.update(); });
+
+    // Images.
+
+    Image imageElement("ImageElement", ImVec2(100, 100));
+    imageElement.setTexture(std::filesystem::path(exePath).parent_path().parent_path() / "tex.png");
 
     // Tooltips.
 
