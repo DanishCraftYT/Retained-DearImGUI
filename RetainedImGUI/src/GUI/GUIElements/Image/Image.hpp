@@ -14,8 +14,10 @@ public:
     Image(std::string name, ImVec2 size);
     Image();
     void render() override;
-    bool setTexture(std::filesystem::path imagePath, bool verticallyFlipTexture=true);
+    int setTexture(std::filesystem::path imagePath, bool verticallyFlipTexture=true);
+    bool hasTexture();
 private:
     ImVec2 size;
     unsigned int imageTexture;
+    bool hasImageTexture;
 };

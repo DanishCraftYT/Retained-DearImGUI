@@ -13,15 +13,19 @@ void Image::render() {
     }
     else if (this->visible == GUIElementVisibility::Disabled) {
         ImGui::BeginDisabled();
-	ImGui::Image((ImTextureID)(intptr_t)this->imageTexture, this->size);
+	if (this->hasImageTexture) {
+	    ImGui::Image((ImTextureID)(intptr_t)this->imageTexture, this->size);
+	}
         ImGui::EndDisabled();
         return;
     }
 
-    ImGui::Image((ImTextureID)(intptr_t)this->imageTexture, this->size);
+    if (this->hasImageTexture) {
+	ImGui::Image((ImTextureID)(intptr_t)this->imageTexture, this->size);
+    }
 }
 
-bool Image::setTexture(std::filesystem::path imagePath, bool verticallyFlipTexture) {
+int Image::setTexture(std::filesystem::path imagePath, bool verticallyFlipTexture) {
     // checks if the texture path is valid.
     if (!std::filesystem::exists(imagePath)) {
 	std::cout << std::format("Texture file doesn't exist: \"{}\"", imagePath.string()) << std::endl;
@@ -68,5 +72,10 @@ bool Image::setTexture(std::filesystem::path imagePath, bool verticallyFlipTextu
 
     // free's texture data used by stb.
     stbi_image_free(data);
+    this->hasImageTexture = true;
     return 1;
+}
+
+bool Image::hasTexture() {
+    return this->hasImageTexture;
 }
