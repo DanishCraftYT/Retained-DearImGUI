@@ -10,7 +10,6 @@ public:
     void render() override;
     ImGuiTreeNodeFlags getTreeNodeFlags();
     void setTreeNodeFlags(ImGuiTreeNodeFlags treeNodeFlags);
-    int getIndexFromItem(GUIElement& guiElement);
     template <typename T>
     std::vector<std::shared_ptr<T>> getGUIElementsByName(std::string name) {
         std::vector<std::shared_ptr<T>> elements;

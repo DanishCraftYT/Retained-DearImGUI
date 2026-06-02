@@ -5,10 +5,10 @@
 
 ## TODO (V0.2.0):
 ### New Features:
-* images.
+* images (completed).
 * tree nodes (completed).
 * groups.
-* tabs.
+* tabs (completed).
 
 ### Improvements:
 * GUI Window:

@@ -187,7 +187,7 @@ int main(int argc, char *argv[]) {
     // Images.
 
     Image imageElement("ImageElement", ImVec2(100, 100));
-    imageElement.setTexture(std::filesystem::path(exePath).parent_path().parent_path() / "tex.png");
+    imageElement.setTexture(std::filesystem::path(exePath).parent_path().parent_path() / "black.png");
 
     // Tooltips.
 
@@ -320,6 +320,7 @@ int main(int argc, char *argv[]) {
         ImGui::Begin("W");
         table.render();
 	tree.render();
+	imageElement.render();
         ImGui::End();
 
         gui.renderAllWindows();
