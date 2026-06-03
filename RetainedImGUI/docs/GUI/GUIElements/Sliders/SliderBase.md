@@ -15,6 +15,27 @@ constructor for the SliderBase class.<br>
 ## public virtual void render() override
 renders the Slider.<br>
 
+## public int setCurrentValue(T value, size_t index=0)
+set's the current value of a slider.<br>
+
+### params:
+* T value - the new value of the slider.<br>
+* size_t index=0 - the slider to set the value of (it's not neccesary to set this parameter if you only have 1 slider).<br>
+
+### returns:
+* 0 if the index is greater than the amount of sliders in the Slider.<br>
+* 1 if the value of the slider was changed.<br>
+
+## public int setCurrentValues(std::vector<T> values)
+set's the current value of all sliders.<br>
+
+### params:
+* std::vector<T> values - the new values of the sliders (if there are more values than sliders. any additional values will be ignored).<br>
+
+### returns:
+* 0 if the values vector's size is less than the amount of sliders in the Slider.<br>
+* 1 if the values of the sliders was changed.<br>
+
 ## public std::vector<T> getCurrentValues()
 get's the current value of each of the sliders in the Slider.<br>
 

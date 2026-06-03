@@ -27,6 +27,7 @@
 #include "GUI/GUIElements/Slider/SliderUInt.hpp"
 #include "GUI/GUIElements/Tree/Tree.hpp"
 #include "GUI/GUIElements/Image/Image.hpp"
+#include "GUI/GUIElements/Group/Group.hpp"
 
 /* TODO:
 * IMPROVEMENTS:
@@ -163,10 +164,17 @@ int main(int argc, char *argv[]) {
     collapHeader.addGUIElement(std::make_shared<ComboBox>("CollapCombo", "Combo Header", "Combo"));
 
     ColorPicker<void> colorPicker("ColorPickerTest", "Color Picker Test", ColorFormat::RGB, ColorAlpha::ALPHA, [](ColorPicker<void>& colorPicker) { std::cout << colorPicker.getColor().x << std::endl << colorPicker.getColor().y << std::endl << colorPicker.getColor().z << std::endl << colorPicker.getColor().w << std::endl; });
+    colorPicker.setColor({ 0, 255, 0, 255 }); // green Color Picker.
+    //colorPicker.setColor({ 1.0f, 0.0f, 0.0f, 1.0f }, false); // red normalized Color Picker.
 
     SliderFloat<void> sliderF("FloatSliderTest", "Float Slider", 1, 0.0f, 1.0f);
+    sliderF.setCurrentValue(0.43f);
+
     SliderInt<int> sliderI("IntSliderTest", "Int Slider", 6, 0, 100, [](SliderBase<int, int>& slider) { std::cout << slider.getCurrentValues().at(0) << std::endl; return 1; });
+    sliderI.setCurrentValues({ 0, 15, 25, 50, 75, 100 });
+
     SliderUInt<void> sliderUI("UISliderTest", "Unsigned Int Slider", 20, 0, 100, [](SliderBase<unsigned int, void>& slider) { for (size_t i = 0; i < slider.getCurrentValues().size(); i++) { std::cout << slider.getCurrentValues().at(i) << std::endl; } });
+    sliderUI.setCurrentValue(27, 10);
     SliderBase<unsigned int, void> sliderB("BaseSliderTest", "Base Slider", 10, 0, 12, ImGuiDataType_::ImGuiDataType_U32);
 
     Text fontText("FontText", "Font Text");
@@ -203,6 +211,13 @@ int main(int argc, char *argv[]) {
     std::shared_ptr child2 = std::make_shared<Child>("c2", ImVec2(150, 50), true);
     child2->addGUIElement(std::make_shared<Text>("TextChild", "Another Child :)"));
     child.addGUIElement(child2);
+
+    // Group Element.
+
+    Group group("group");
+    group.visible = GUIElementVisibility::Disabled;
+    group.addGUIElement(std::make_shared<Text>("GroupTxt", "Group Text"));
+    group.addGUIElement(std::make_shared<Button<void>>("GroupBtn", "Group Button", ImVec2(100, 30)));
 
     // Tree's.
     
@@ -321,6 +336,7 @@ int main(int argc, char *argv[]) {
         table.render();
 	tree.render();
 	imageElement.render();
+	group.render();
         ImGui::End();
 
         gui.renderAllWindows();

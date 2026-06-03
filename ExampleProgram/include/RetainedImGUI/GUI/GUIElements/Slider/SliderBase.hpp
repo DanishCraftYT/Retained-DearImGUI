@@ -24,6 +24,22 @@ public:
             this->callback(*this);
         }
     }
+    int setCurrentValue(T value, size_t index=0) {
+	if (index > this->values.size()) {
+	    return 0;
+	}
+	this->values.at(index) = value;
+	return 1;
+    }
+    int setCurrentValues(std::vector<T> values) {
+	if (values.size() < this->values.size()) {
+	    return 0;
+	}
+	for (int i = 0; i < this->values.size(); i++) {
+	    this->values.at(i) = values.at(i);
+	}
+	return 1;
+    }
     std::vector<T> getCurrentValues() {
         return this->values;
     }

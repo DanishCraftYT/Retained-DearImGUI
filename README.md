@@ -7,16 +7,16 @@
 ### New Features:
 * images (completed).
 * tree nodes (completed).
-* groups.
+* groups (completed).
 * tabs (completed).
 
 ### Improvements:
 * GUI Window:
   * be able to lock GUI Window position and/or size.
 * Color Picker:
-  * be able to set the default color of a Color Picker.
+  * be able to set the default color of a Color Picker (completed).
 * Slider:
-  * be able to set the default value of a Slider.
+  * be able to set the default value of a Slider (completed).
 
 ### Bug Fixes:
 * Selectables:

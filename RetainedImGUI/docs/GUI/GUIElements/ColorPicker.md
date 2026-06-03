@@ -31,6 +31,13 @@ determines if the color has Alpha or not.<br>
 * ALPHA if the Color Picker uses Alpha.<br>
 * NO_ALPHA if the Color Picker doens't use Alpha.<br>
 
+## public void setColor(ImVec4 color, bool normalize=true)
+set's the color of the Color Picker.<br>
+
+### params:
+* ImVec4 color - the new color of the Color Picker.<br>
+* bool normalize=true - determines if the color will be normalized or not (only set to false if you know the color is normalized since ImGUI expects the colors to be between 0.0f - 1.0f).<br>
+
 ## public ImVec4 getColor()
 get's the color from the Color Picker.<br>
 

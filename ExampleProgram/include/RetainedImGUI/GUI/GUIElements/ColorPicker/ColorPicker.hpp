@@ -38,6 +38,16 @@ public:
     ColorAlpha getAlpha() {
         return this->alpha;
     }
+    void setColor(ImVec4 color, bool normalize=true) {
+	// determines if the color needs to be normalized (ImGUI expects the colors to be between 0.0f - 1.0f).
+	if (normalize) {
+	    color.x = color.x/255.0f;
+	    color.y = color.y/255.0f;
+	    color.z = color.z/255.0f;
+	    color.w = color.w/255.0f;
+	}
+	this->color = color;
+    }
     ImVec4 getColor() {
         return this->color;
     }
