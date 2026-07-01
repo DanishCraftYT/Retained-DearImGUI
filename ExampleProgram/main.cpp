@@ -278,6 +278,12 @@ int main(int argc, char *argv[]) {
     
     Button<int> openModalBtn("OpenModal", "Open Modal Popup", ImVec2(100, 50), [&modal](Button<int>& button) { modal.open(); return 1; });
 
+    // No Move No Resize Window //
+
+    GUIWindow noResize("NoResize", "No Resize", ImVec2(0, 0), ImVec2(100, 50), false, true);
+    GUIWindow noMove("NoMove", "No Move", ImVec2(50, 50), ImVec2(100, 50), true, false);
+    GUIWindow noResizeMove("NoResizeMove", "No Resize No Move", ImVec2(100, 100), ImVec2(150, 50), false, false);
+
     // render loop.
     while(!glfwWindowShouldClose(window))
     {
@@ -287,6 +293,11 @@ int main(int argc, char *argv[]) {
 
         // ImGui NewFrame.
         retainedGUI.ImGUINewFrame();
+
+        // Window Resize and Movement.
+        noResize.render();
+        noMove.render();
+        noResizeMove.render();
 
         // imgui window.
         ImGui::Begin("r");

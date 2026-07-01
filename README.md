@@ -12,7 +12,7 @@
 
 ### Improvements:
 * GUI Window:
-  * be able to lock GUI Window position and/or size.
+  * be able to lock GUI Window position and/or size (completed).
 * Color Picker:
   * be able to set the default color of a Color Picker (completed).
 * Slider:

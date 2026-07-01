@@ -1,7 +1,7 @@
 # class GUIWindow : public ContainerMultipleGUIElements
 handles GUI Element's.<br>
 
-## public GUIWindow(std::string name, std::string text, ImVec2 position, ImVec2 size)
+## public GUIWindow(std::string name, std::string text, ImVec2 position, ImVec2 size, bool resizable=true, bool movable=true)
 constructor for the GUI Window class.<br>
 
 ### params:
@@ -9,6 +9,8 @@ constructor for the GUI Window class.<br>
 * std::string text - the title of the GUI Window.<br>
 * ImVec2 position - the position of the GUI Window.<br>
 * ImVec2 size - the size of the GUI Window.<br>
+* bool resizable=true - determines if the GUI Window can be resized by the user.<br>
+* bool movable=true - determines if the GUI Window can be moved around by the user.<br>
 
 ## public GUIWindow()
 constructor for the GUI Window class.<br>
@@ -30,3 +32,9 @@ contains the original position of the GUI Window.<br>
 
 ## private ImVec2 size
 contains the original size of the GUI Window.<br>
+
+## private int resizable
+contains 0 or the value of the ImGUI Window Flag for non resizable windows.<br>
+
+## private int movable
+contains 0 or the value of the ImGUI Window Flag for non movable windows.<br>
