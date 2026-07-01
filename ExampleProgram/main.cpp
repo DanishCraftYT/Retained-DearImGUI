@@ -31,8 +31,7 @@
 
 /* TODO:
 * IMPROVEMENTS:
-* (GUI WINDOW) implement ability to lock the position and/or size of the GUI Window.
-* * make sure to update classes that contain GUI Elements to terminate them when their terminate function is called.
+* make sure to update classes that contain GUI Elements to terminate them when their terminate function is called.
 * (GUI) do so it handles GUI Modals.
 * (INPUT FIELD) add preview text for input fields.
 * (INPUT FIELD) ability to show / hide the user input (kinda like password input fields).
@@ -45,22 +44,16 @@
 * (TEXT) add support for text filters.
 * (TOOLTIP) add support for more GUI Elements (currently supported: Button, Checkbox, Input Field).
 * (COLLAPSING HEADER) add a option to do so that when it's reached the end of the Collapsing Header. it displays something to separate elements after it (Empty Text Field?, Separator?).
-* (COLOR PICKER) do so you can set the color of the Color Picker when creating it.
-* (SLIDER) do so you can set the default value of the Slider.
 * (FONTS | CONSIDER) consider making the Fonts class static.
 *
 * CORE:
 * add support for lists (a GUI Element that can only store 1 type of GUI Element).
 * add support for multiline input fields.
-* add support for images.
-* add support for tree nodes.
 * add drag and drop functionality.
 * add support for links.
 *
 * LAYOUT:
 * add support for empty element (element's which contain a empty text field. should primarily be used for putting a empty space between elements).
-* add support for groups.
-* add support for tabs.
 * add support for Docking (https://github.com/ocornut/imgui/wiki/Docking).
 *
 * EXTENSIONS:
