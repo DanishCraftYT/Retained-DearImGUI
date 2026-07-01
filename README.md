@@ -3,25 +3,17 @@
 # Requirements:
 * ImGUI (comes included with version: 1.92.8).<br>
 
-## TODO (V0.2.0):
+## TODO (V0.3.0):
 ### New Features:
-* images (completed).
-* tree nodes (completed).
-* groups (completed).
-* tabs (completed).
+* Empty Element
+* List Element.
 
 ### Improvements:
-* GUI Window:
-  * be able to lock GUI Window position and/or size (completed).
-* Color Picker:
-  * be able to set the default color of a Color Picker (completed).
-* Slider:
-  * be able to set the default value of a Slider (completed).
-
-### Bug Fixes:
-* Selectables:
-  * clicking a Selectable with no callback would cause the application to crash (fixed).
-* Tables:
-  * using the "getGUIElementsByName()" function may crash the application (fixed).
-* Collapsing Headers:
-  * using the "getGUIElementsByName()" function may crash the application (fixed).
+* add "getText()" and "setText()" functions to GUI Elements that display text.
+* add "getSize()" and "setSize()" functions to GUI Elements that can have different sizes (like Buttons).
+* Text:
+  * add support for Text Filters.
+  * add support for changing the Text Color.
+* Input Field:
+  * add support for hiding / showing the text in the Input Field to the user.
+  * add support for preview text in the Input Field.
